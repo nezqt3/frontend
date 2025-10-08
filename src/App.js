@@ -1,7 +1,12 @@
-import logo from "./static/logo.svg";
+import MainPage from "./components/MainPage";
+import "./styles/index.css";
 
 function App() {
-  return <div className="App">Привет!</div>;
+  return (
+    <div className="App">
+      <MainPage />
+    </div>
+  );
 }
 
 export default App;

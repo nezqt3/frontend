@@ -1,7 +1,102 @@
-
+import downBackgroundImage from "../static/downBackgroundImage.svg";
+import accountImage from "../static/Account.svg";
+import background from '../static/background.png'
+import logoImage from "../static/logo.svg";
+import update from '../static/update.svg'
+import line from '../static/lineHistory.svg'
+import { useState } from "react";
 
 export default function MainPage() {
-    return (<div>
-            
-        </div>)
+
+    const [points, setPoints] = useState(200)
+
+    const [rotating, setRotating] = useState(false);
+
+    const data = [
+        {
+            date: 8.10,
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: 8.10,
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: 8.10,
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: 8.10,
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+    ]
+
+  const handleClick = () => {
+    setRotating(true);
+    setTimeout(() => setRotating(false), 500);
+  };
+
+  return (
+    <div className="main-page">
+      <img src={downBackgroundImage} alt="backgroundImage" className="background-image" />
+      <img src={background} alt="background" className="background" />
+
+      <div className="main-page__container">
+        <header>
+          <img src={accountImage} alt="account" />
+        </header>
+
+        <div className="points-block">
+            <div className="infoBlock-points">
+                <p>баллы можно списать при заказе</p>
+            </div>
+            <div className="show-pointsBlock">
+                <h1>БАЛЛЫ</h1>
+                <div className="points-data">
+                    <p>{points}</p>
+                </div>
+                <div className="block-with-cashback">
+                    <div className="cashback">
+                        <span>кэшбек от покупки</span>
+                        <p>3%</p>
+                    </div>
+                    <img src={update} alt="update" className={`update ${rotating ? "rotate" : ""}`} onClick={handleClick}/>
+                </div>
+            </div>
+            <div className="buttons">
+                <button>
+                    ОФОРМИТЬ ЗАКАЗ
+                </button>
+                <button>
+                    СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ
+                </button>
+                <button>
+                    РЕФЕРАЛКА
+                </button>
+            </div>
+            <div className="history">
+                <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>
+                <img src={line} alt="line" className="line"/>
+                <div>
+                {data.forEach(elem => {
+                    return <div>
+                            <p>{elem.date}</p>
+                            <p>{elem.what}</p>
+                            <p>{elem.add_points}</p>
+                        </div>
+                })}
+                </div>
+            </div>
+        </div>
+        <img src={logoImage} alt="logo" className="logo" />
+      </div>
+    </div>
+  );
 }

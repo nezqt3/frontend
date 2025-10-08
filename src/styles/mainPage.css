@@ -1,0 +1,182 @@
+/* Мобильная версия */
+@media (max-width: 422px) {
+    .main-page {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(44, 44, 44, 1);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .background-image {
+        position: absolute;
+        top: 25%;
+        filter: blur(10px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: auto; 
+        z-index: 0; 
+    }
+
+    .background {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 0;
+    }
+
+    .main-page__container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 20px 20px;
+    }
+
+    .main-page__container header {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .main-page__container header img {
+        width: 40px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .points-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .infoBlock-points {
+        background-color: rgba(217, 217, 217, 0.2);
+        color: rgba(157, 157, 157, 1);
+        font-size: 10px;
+        font-weight: 500;
+        text-align: center;
+        margin: 0 50px;
+        border-radius: 20px;
+        padding: 5px 30px;
+        margin-bottom: 10px;
+    }
+
+    .show-pointsBlock {
+        flex: 1;
+        background: linear-gradient(258.92deg, #CCCCCC -1.8%, #4B4B4B 153.03%);
+        border-radius: 25px;
+        padding: 20px 30px;
+    }
+
+    .show-pointsBlock h1 {
+        font-size: 25px;
+        color: white;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .points-data {
+        background: linear-gradient(85.68deg, #1C1C1C -16.27%, #807F7F 120.21%);
+        color: white;
+        font-weight: 700;
+        font-size: 40px;
+        padding: 5px 0;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 20px;
+        flex: 1;
+    }
+
+    .block-with-cashback {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .cashback {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .cashback span {
+        font-size: 10px;
+        font-weight: 500;
+        color: rgba(208, 208, 208, 1);
+
+    }
+
+    .cashback p {
+        font-weight: 500;
+        color: white
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: row; /* горизонтально */
+        justify-content: center; /* центрируем весь блок по горизонтали */
+        align-items: center; /* выравниваем по вертикали */
+        gap: 10px; /* расстояние между кнопками */
+        margin-top: 20px; /* отступ сверху блока кнопок */
+        margin-bottom: 20px;
+    }
+
+    .buttons button {
+        height: 100%;
+        padding: 8px 12px; /* внутренние отступы */
+        border-radius: 15px; /* скругление углов */
+        background: linear-gradient(258.92deg, #CCCCCC -1.8%, #4B4B4B 153.03%);
+        color: white;
+        font-weight: 700;
+        font-size: 11px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .history {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .history h2 {
+        margin-bottom: 10px;
+        color: white;
+        font-weight: 500;
+        font-size: 20px;
+    }
+
+    .line {
+        width: 100%;
+    }
+
+    .logo {
+        width: 120px;
+        height: auto;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: auto auto 0 auto;
+        margin-top: 20px;
+    }
+
+    .update {
+        width: 35px;
+        transition: transform 0.5s ease;
+        cursor: pointer; 
+    }
+
+    .update.rotate {
+        transform: rotate(90deg);
+    }
+}
