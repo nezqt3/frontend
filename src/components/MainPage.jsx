@@ -14,20 +14,24 @@ export default function MainPage() {
     const [rotating, setRotating] = useState(false);
     const [user, setUser] = useState({});
 
-    useEffect(() => {
-        setPoints(200)
+    const fetchData = () => {
         if (typeof window !== "undefined" && window.Telegram?.WebApp) {
             const tg = window.Telegram.WebApp;
             tg.ready();
 
-        if (tg.initDataUnsafe?.user) {
-            setUser(tg.initDataUnsafe.user);
-        } else {
-            console.warn("Telegram user data not available");
-        }
+            if (tg.initDataUnsafe?.user) {
+                setUser(tg.initDataUnsafe.user);
+            } else {
+                console.warn("Telegram user data not available");
+            }
         } else {
             console.warn("Telegram WebApp not found");
         }
+    }
+
+    useEffect(() => {
+        setPoints(200)
+        fetchData()
     }, []) 
     const data = [
         {
@@ -105,7 +109,7 @@ export default function MainPage() {
     setRotating(true);
     setTimeout(() => setRotating(false), 500);
 
-    console.log(user)
+    fetchData()
   };
 
   return (
@@ -123,7 +127,7 @@ export default function MainPage() {
                 <p>баллы можно списать при заказе</p>
             </div>
             <div className="show-pointsBlock">
-                {user && user.first_name ? <p>{user.first_name}</p> : <p>Nothing</p>}
+                {user && user.first_name ? <p>{user.first_name}</p> : <p>{Object.keys(user).length}</p>}
                 <h1>БАЛЛЫ</h1>
                 <div className="points-data">
                     <p>{points}</p>
