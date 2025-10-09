@@ -16,10 +16,17 @@ export default function MainPage() {
 
     useEffect(() => {
         setPoints(200)
-        if (window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp
-            tg.ready()
+        if (typeof window !== "undefined" && window.Telegram?.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+
+        if (tg.initDataUnsafe?.user) {
             setUser(tg.initDataUnsafe.user);
+        } else {
+            console.warn("Telegram user data not available");
+        }
+        } else {
+            console.warn("Telegram WebApp not found");
         }
     }, []) 
     const data = [
@@ -97,6 +104,8 @@ export default function MainPage() {
   const handleClick = () => {
     setRotating(true);
     setTimeout(() => setRotating(false), 500);
+
+    console.log(user)
   };
 
   return (
@@ -114,7 +123,7 @@ export default function MainPage() {
                 <p>баллы можно списать при заказе</p>
             </div>
             <div className="show-pointsBlock">
-                {user.first_name !== "" ? <p>{user.first_name}</p> : <p>Nothing</p>}
+                {user && user.first_name ? <p>{user.first_name}</p> : <p>Nothing</p>}
                 <h1>БАЛЛЫ</h1>
                 <div className="points-data">
                     <p>{points}</p>
@@ -144,8 +153,8 @@ export default function MainPage() {
                 <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>
                 <img src={line} alt="line" className="line"/>
                 <div className="history-list">
-                {data.map(elem => {
-                    return <div>
+                {data.map((elem, index) => {
+                    return <div key={index}>
                         <div>
                             <span>{elem.date}</span>
                             <p>{elem.what}</p>
