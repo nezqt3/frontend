@@ -24,6 +24,7 @@
         width: 100%;
         position: absolute;
         top: 0;
+        height: 100%;
         left: 50%;
         transform: translateX(-50%);
         z-index: 0;
@@ -132,8 +133,9 @@
 
     .buttons button {
         height: 100%;
-        padding: 8px 12px; /* внутренние отступы */
-        border-radius: 15px; /* скругление углов */
+        padding: 8px 12px;
+        text-decoration: none;
+        border-radius: 15px; 
         background: linear-gradient(258.92deg, #CCCCCC -1.8%, #4B4B4B 153.03%);
         color: white;
         font-weight: 700;

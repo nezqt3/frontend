@@ -4,6 +4,7 @@ import background from '../static/background.png'
 import logoImage from "../static/logo.svg";
 import update from '../static/update.svg'
 import line from '../static/lineHistory.svg'
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function MainPage() {
@@ -117,9 +118,11 @@ export default function MainPage() {
                 </div>
             </div>
             <div className="buttons">
-                <button>
-                    ОФОРМИТЬ ЗАКАЗ
-                </button>
+                <Link to='/order'>
+                    <button>
+                            ОФОРМИТЬ ЗАКАЗ
+                    </button>
+                </Link>
                 <button>
                     СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ
                 </button>
