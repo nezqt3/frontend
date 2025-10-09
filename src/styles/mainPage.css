@@ -122,11 +122,11 @@
 
     .buttons {
         display: flex;
-        flex-direction: row; /* горизонтально */
-        justify-content: center; /* центрируем весь блок по горизонтали */
-        align-items: center; /* выравниваем по вертикали */
-        gap: 10px; /* расстояние между кнопками */
-        margin-top: 20px; /* отступ сверху блока кнопок */
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
         margin-bottom: 20px;
     }
 
