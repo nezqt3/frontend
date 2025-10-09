@@ -1,166 +1,183 @@
 import downBackgroundImage from "../static/downBackgroundImage.svg";
 import accountImage from "../static/Account.svg";
-import background from '../static/background.png'
+import background from "../static/background.png";
 import logoImage from "../static/logo.svg";
-import update from '../static/update.svg'
-import line from '../static/lineHistory.svg'
+import update from "../static/update.svg";
+import line from "../static/lineHistory.svg";
+import Loader from "../components/Loader"; // импорт Loader
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function MainPage({ fetchData }) {
+  const [points, setPoints] = useState(0);
+  const [rotating, setRotating] = useState(false);
+  const [loading, setLoading] = useState(true); // состояние загрузки
+  const [data, setData] = useState([]);
 
-    const [points, setPoints] = useState(200)
+  useEffect(() => {
+    setLoading(true);
+    const res = fetchData(); // синхронная функция
+    setPoints(200);
+    setData([]);
+    setLoading(false);
+  }, [fetchData]);
 
-    const [rotating, setRotating] = useState(false);
+  const fallbackData = [
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-    useEffect(() => {
-        setPoints(200)
-        fetchData()
-    }, [fetchData]) 
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-    const data = [
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
 
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
-
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
-
-        {
-            date: "08.10",
-            what: "Бонус за покупку",
-            add_points: 200
-        },
-    ]
+    {
+      date: "08.10",
+      what: "Бонус за покупку",
+      add_points: 200,
+    },
+  ];
 
   const handleClick = () => {
     setRotating(true);
     setTimeout(() => setRotating(false), 500);
 
-    fetchData()
+    setLoading(true);
+    const res = fetchData();
+    setPoints(200);
+    setData([]);
+    setLoading(false);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="main-page">
-      <img src={downBackgroundImage} alt="backgroundImage" className="background-image" />
+      <img
+        src={downBackgroundImage}
+        alt="backgroundImage"
+        className="background-image"
+      />
       <img src={background} alt="background" className="background" />
 
       <div className="main-page__container">
-        <header>
-            <Link to='account'>
-                <img src={accountImage} alt="account" />
+        <div className="header-block">
+          <header>
+            <Link to="account">
+              <img src={accountImage} alt="account" />
             </Link>
-        </header>
+          </header>
+        </div>
 
         <div className="points-block">
-            <div className="infoBlock-points">
-                <p>баллы можно списать при заказе</p>
+          <div className="infoBlock-points">
+            <p>баллы можно списать при заказе</p>
+          </div>
+          <div className="show-pointsBlock">
+            <h1>БАЛЛЫ</h1>
+            <div className="points-data">
+              <p>{points}</p>
             </div>
-            <div className="show-pointsBlock">
-                <h1>БАЛЛЫ</h1>
-                <div className="points-data">
-                    <p>{points}</p>
-                </div>
-                <div className="block-with-cashback">
-                    <div className="cashback">
-                        <span>кэшбек от покупки</span>
-                        <p>3%</p>
+            <div className="block-with-cashback">
+              <div className="cashback">
+                <span>кэшбек от покупки</span>
+                <p>3%</p>
+              </div>
+              <img
+                src={update}
+                alt="update"
+                className={`update ${rotating ? "rotate" : ""}`}
+                onClick={handleClick}
+              />
+            </div>
+          </div>
+          <div className="buttons">
+            <Link to="/order">
+              <button>ОФОРМИТЬ ЗАКАЗ</button>
+            </Link>
+            <a href="https://t.me/ghostedmng">
+              <button>СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ</button>
+            </a>
+            <Link to="/referal">
+              <button>РЕФЕРАЛКА</button>
+            </Link>
+          </div>
+          <div className="history">
+            <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>
+            <img src={line} alt="line" className="line" />
+            <div className="history-list">
+              {fallbackData.map((elem, index) => {
+                return (
+                  <div key={index}>
+                    <div>
+                      <span>{elem.date}</span>
+                      <p>{elem.what}</p>
                     </div>
-                    <img src={update} alt="update" className={`update ${rotating ? "rotate" : ""}`} onClick={handleClick}/>
-                </div>
+                    <p className="add-points">+{elem.add_points}</p>
+                  </div>
+                );
+              })}
             </div>
-            <div className="buttons">
-                <Link to='/order'>
-                    <button>
-                        ОФОРМИТЬ ЗАКАЗ
-                    </button>
-                </Link>
-                <a href="https://t.me/ghostedmng">
-                    <button>
-                        СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ
-                    </button>
-                </a>
-                <Link to='/referal'>
-                    <button>
-                        РЕФЕРАЛКА
-                    </button>
-                </Link>
-            </div>
-            <div className="history">
-                <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>
-                <img src={line} alt="line" className="line"/>
-                <div className="history-list">
-                {data.map((elem, index) => {
-                    return <div key={index}>
-                        <div>
-                            <span>{elem.date}</span>
-                            <p>{elem.what}</p>
-                        </div>
-                            <p className="add-points">+{elem.add_points}</p>
-                        </div>
-                })}
-                </div>
-            </div>
+          </div>
         </div>
-        <img src={logoImage} alt="logo" className="logo" />
       </div>
+      <img src={logoImage} alt="logo" className="logo" />
     </div>
   );
 }

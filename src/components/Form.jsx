@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState, useEffect } from "react";
 import downBackgroundImage from "../static/downBackgroundImage.svg";
 import accountImage from "../static/Account.svg";
 import background from '../static/background.png'
@@ -25,7 +25,7 @@ export default function Form() {
                 <Link to='account'>
                   <img src={accountImage} alt="account" />
                 </Link>
-                <p>200</p>
+                <p>1200</p>
               </header>
               <Link to='/' className="close">← Назад</Link>
             </div>
@@ -34,18 +34,17 @@ export default function Form() {
 
             <div className="form-inputs">
                 <p>ВВЕДИТЕ ДАННЫЕ О ТОВАРЕ</p>
-                <input type="text" placeholder="Наименование"/>
-                <input type="text" placeholder="Адрес"/>
-                <input type="text" placeholder="Ссылка"/>
-                <input type="text" placeholder="Размер"/>
-                <input type="text" placeholder="Количество"/>
-                <input type="text" placeholder="Промокод"/>
+                <input type="text" placeholder="Наименование" onFocus={e => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}/>
+                <input type="text" placeholder="Адрес" onFocus={e => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}/>
+                <input type="text" placeholder="Ссылка" onFocus={e => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}/>
+                <input type="text" placeholder="Размер" onFocus={e => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}/>
+                <input type="text" placeholder="Количество" onFocus={e => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}/>
+                <input type="text" placeholder="Промокод" onFocus={e => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' })}/>
                 <button>ЗАКАЗАТЬ</button>
             </div>
             <p className="manager">Наш менеджер свяжется с вами в ближайшее время</p>
-    
-            <img src={logoImage} alt="logo" className="logo" />
           </div>
+          <img src={logoImage} alt="logo" className="logo" />
         </div>)
 
 }
