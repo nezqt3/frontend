@@ -143,7 +143,7 @@ export default function MainPage() {
             <div className="buttons">
                 <Link to='/order'>
                     <button>
-                            ОФОРМИТЬ ЗАКАЗ
+                        ОФОРМИТЬ ЗАКАЗ
                     </button>
                 </Link>
                 <button>
