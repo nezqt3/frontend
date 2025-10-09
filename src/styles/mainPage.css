@@ -148,6 +148,35 @@
         align-items: center;
     }
 
+    .history-list {
+        display: flex;
+        padding: 0 30px;
+        width: 100%;
+        gap: 15px;
+        max-height: 230px;
+        overflow-y: auto;
+        scrollbar-width: thin; 
+        scrollbar-color: rgba(255, 255, 255, 0.3);
+        flex-direction: column;
+    }
+
+    .history-list div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: white;
+        font-size: 15px;
+    }
+
+    .history-list div span {
+        color: rgba(184, 184, 184, 1);
+        margin-right: 8px;
+    }
+
+    .add-points {
+        font-size: 20px;
+    }
+
     .history h2 {
         margin-bottom: 10px;
         color: white;
@@ -157,6 +186,7 @@
 
     .line {
         width: 100%;
+        margin-bottom: 15px;
     }
 
     .logo {

@@ -14,25 +14,71 @@ export default function MainPage() {
 
     const data = [
         {
-            date: 8.10,
+            date: "08.10",
             what: "Бонус за покупку",
             add_points: 200
         },
 
         {
-            date: 8.10,
+            date: "08.10",
             what: "Бонус за покупку",
             add_points: 200
         },
 
         {
-            date: 8.10,
+            date: "08.10",
             what: "Бонус за покупку",
             add_points: 200
         },
 
         {
-            date: 8.10,
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: "08.10",
+            what: "Бонус за покупку",
+            add_points: 200
+        },
+
+        {
+            date: "08.10",
             what: "Бонус за покупку",
             add_points: 200
         },
@@ -84,12 +130,14 @@ export default function MainPage() {
             <div className="history">
                 <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>
                 <img src={line} alt="line" className="line"/>
-                <div>
-                {data.forEach(elem => {
+                <div className="history-list">
+                {data.map(elem => {
                     return <div>
-                            <p>{elem.date}</p>
+                        <div>
+                            <span>{elem.date}</span>
                             <p>{elem.what}</p>
-                            <p>{elem.add_points}</p>
+                        </div>
+                            <p className="add-points">+{elem.add_points}</p>
                         </div>
                 })}
                 </div>
