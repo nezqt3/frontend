@@ -114,7 +114,7 @@ export default function MainPage() {
                 <p>баллы можно списать при заказе</p>
             </div>
             <div className="show-pointsBlock">
-                {user?.first_name === "" ? "" : <p>{user.first_name}</p>}
+                {user.first_name !== "" ? <p>{user.first_name}</p> : <p>Nothing</p>}
                 <h1>БАЛЛЫ</h1>
                 <div className="points-data">
                     <p>{points}</p>
