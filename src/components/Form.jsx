@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import downBackgroundImage from "../static/downBackgroundImage.svg";
 import accountImage from "../static/Account.svg";
 import background from '../static/background.png'
@@ -6,12 +6,12 @@ import logoImage from "../static/logo.svg";
 
 export default function Form() {
 
-    const [name, setName] = useState('')
-    const [address, setAddress] = useState('')
-    const [url, setUrl] = useState('')
-    const [size, setSize] = useState('')
-    const [count, setCount] = useState('')
-    const [promocode, setPromocode] = useState('')
+    // const [name, setName] = useState('')
+    // const [address, setAddress] = useState('')
+    // const [url, setUrl] = useState('')
+    // const [size, setSize] = useState('')
+    // const [count, setCount] = useState('')
+    // const [promocode, setPromocode] = useState('')
 
     return (<div className="form">
           <img src={downBackgroundImage} alt="backgroundImage" className="background-image" />

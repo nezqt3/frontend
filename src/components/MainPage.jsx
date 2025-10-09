@@ -5,7 +5,7 @@ import logoImage from "../static/logo.svg";
 import update from '../static/update.svg'
 import line from '../static/lineHistory.svg'
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MainPage() {
 
@@ -13,6 +13,7 @@ export default function MainPage() {
 
     const [rotating, setRotating] = useState(false);
 
+    useEffect(() => setPoints(200), [])
     const data = [
         {
             date: "08.10",
