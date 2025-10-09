@@ -7,32 +7,17 @@ import line from '../static/lineHistory.svg'
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export default function MainPage() {
+export default function MainPage({ fetchData }) {
 
     const [points, setPoints] = useState(200)
 
     const [rotating, setRotating] = useState(false);
-    const [user, setUser] = useState({});
-
-    const fetchData = () => {
-        if (typeof window !== "undefined" && window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-
-            if (tg.initDataUnsafe?.user) {
-                setUser(tg.initDataUnsafe.user);
-            } else {
-                console.warn("Telegram user data not available");
-            }
-        } else {
-            console.warn("Telegram WebApp not found");
-        }
-    }
 
     useEffect(() => {
         setPoints(200)
         fetchData()
     }, []) 
+
     const data = [
         {
             date: "08.10",
@@ -108,8 +93,6 @@ export default function MainPage() {
   const handleClick = () => {
     setRotating(true);
     setTimeout(() => setRotating(false), 500);
-
-    fetchData()
   };
 
   return (
@@ -127,7 +110,6 @@ export default function MainPage() {
                 <p>баллы можно списать при заказе</p>
             </div>
             <div className="show-pointsBlock">
-                {user && user.first_name ? <p>{user.first_name}</p> : <p>{Object.keys(user).length}</p>}
                 <h1>БАЛЛЫ</h1>
                 <div className="points-data">
                     <p>{points}</p>
@@ -149,9 +131,11 @@ export default function MainPage() {
                 <button>
                     СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ
                 </button>
-                <button>
-                    РЕФЕРАЛКА
-                </button>
+                <Link to='/referal'>
+                    <button>
+                        РЕФЕРАЛКА
+                    </button>
+                </Link>
             </div>
             <div className="history">
                 <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>

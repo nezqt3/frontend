@@ -14,7 +14,8 @@ export default function Form() {
     // const [count, setCount] = useState('')
     // const [promocode, setPromocode] = useState('')
 
-    return (<div className="form">
+    return (
+    <div className="form">
           <img src={downBackgroundImage} alt="backgroundImage" className="background-image" />
           <img src={background} alt="background" className="background" />
     

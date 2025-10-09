@@ -41,6 +41,7 @@
 
     .main-page__container header {
         display: flex;
+        padding: 0 15px;
         justify-content: flex-start;
     }
 

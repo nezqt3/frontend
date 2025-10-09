@@ -19,6 +19,7 @@
     }
 
     .header-block {
+        padding: 0 15px;
         display: flex;
         align-items: center;
         flex-direction: row;
