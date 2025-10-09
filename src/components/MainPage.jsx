@@ -104,7 +104,9 @@ export default function MainPage({ fetchData }) {
 
       <div className="main-page__container">
         <header>
-          <img src={accountImage} alt="account" />
+            <Link to='account'>
+                <img src={accountImage} alt="account" />
+            </Link>
         </header>
 
         <div className="points-block">
@@ -130,9 +132,11 @@ export default function MainPage({ fetchData }) {
                         ОФОРМИТЬ ЗАКАЗ
                     </button>
                 </Link>
-                <button>
-                    СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ
-                </button>
+                <a href="https://t.me/ghostedmng">
+                    <button>
+                        СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ
+                    </button>
+                </a>
                 <Link to='/referal'>
                     <button>
                         РЕФЕРАЛКА

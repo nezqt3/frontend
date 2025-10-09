@@ -38,7 +38,9 @@ export default function ReferalLink({user}) {
           <div className="referal__container">
             <div className="header-block">
               <header>
-                <img src={accountImage} alt="account" />
+                <Link to='account'>
+                    <img src={accountImage} alt="account" />
+                </Link>
                 <p>200</p>
               </header>
               <Link to='/' className="close">← Назад</Link>
