@@ -16,10 +16,12 @@ export default function MainPage() {
 
     useEffect(() => {
         setPoints(200)
-        const tg = window.Telegram.WebApp
-        tg.ready()
-        setUser(tg.initDataUnsafe.user);
-    }, [])
+        if (window.Telegram?.WebApp) {
+            const tg = window.Telegram.WebApp
+            tg.ready()
+            setUser(tg.initDataUnsafe.user);
+        }
+    }, []) 
     const data = [
         {
             date: "08.10",
