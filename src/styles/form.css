@@ -18,6 +18,19 @@
         padding: 20px 20px;
     }
 
+    .header-block {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .header-block .close {
+        margin-bottom: 15px;
+        text-decoration: none;
+        color: white;
+    }
+
     .form__container header {
         display: flex;
         justify-content: flex-start;

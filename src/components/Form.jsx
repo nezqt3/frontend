@@ -3,6 +3,7 @@ import downBackgroundImage from "../static/downBackgroundImage.svg";
 import accountImage from "../static/Account.svg";
 import background from '../static/background.png'
 import logoImage from "../static/logo.svg";
+import { Link } from "react-router-dom";
 
 export default function Form() {
 
@@ -18,10 +19,13 @@ export default function Form() {
           <img src={background} alt="background" className="background" />
     
           <div className="form__container">
-            <header>
-              <img src={accountImage} alt="account" />
-              <p>200</p>
-            </header>
+            <div className="header-block">
+              <header>
+                <img src={accountImage} alt="account" />
+                <p>200</p>
+              </header>
+              <Link to='/' className="close">← Назад</Link>
+            </div>
 
             <h1>ОФОРМЛЕНИЕ ЗАКАЗА</h1>
 

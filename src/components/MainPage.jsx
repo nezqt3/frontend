@@ -12,14 +12,14 @@ export default function MainPage() {
     const [points, setPoints] = useState(200)
 
     const [rotating, setRotating] = useState(false);
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        setPoints(200)
-        const tg = window.Telegram.WebApp
-        tg.ready()
-        setUser(tg.initDataUnsafe.user);
-    }, [])
+    // useEffect(() => {
+    //     setPoints(200)
+    //     const tg = window.Telegram.WebApp
+    //     tg.ready()
+    //     setUser(tg.initDataUnsafe.user);
+    // }, [])
     const data = [
         {
             date: "08.10",
@@ -138,7 +138,7 @@ export default function MainPage() {
                 </button>
             </div>
             <div className="history">
-                {user === "" ? <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2> : ""}
+                <h2>ИСТОРИЯ ПОПОЛНЕНИЙ</h2>
                 <img src={line} alt="line" className="line"/>
                 <div className="history-list">
                 {data.map(elem => {
