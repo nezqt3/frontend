@@ -12,13 +12,13 @@ export default function MainPage() {
     const [points, setPoints] = useState(200)
 
     const [rotating, setRotating] = useState(false);
-    // const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         setPoints(200)
-        // const tg = window.Telegram.WebApp
-        // tg.ready()
-        // setUser(tg.initDataUnsafe.user);
+        const tg = window.Telegram.WebApp
+        tg.ready()
+        setUser(tg.initDataUnsafe.user);
     }, [])
     const data = [
         {
@@ -112,6 +112,7 @@ export default function MainPage() {
                 <p>баллы можно списать при заказе</p>
             </div>
             <div className="show-pointsBlock">
+                {user?.first_name === "" ? "" : <p>{user.first_name}</p>}
                 <h1>БАЛЛЫ</h1>
                 <div className="points-data">
                     <p>{points}</p>
