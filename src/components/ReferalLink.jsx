@@ -17,17 +17,17 @@ export default function ReferalLink({user}) {
         {
             photo_url: user.photo_url,
             username: user.username,
-            points: 1500
+            points: 500
         },
         {
             photo_url: user.photo_url,
             username: user.username,
-            points: 1500
+            points: 300
         },
         {
             photo_url: user.photo_url,
             username: user.username,
-            points: 1500
+            points: 250
         }
     ]
 
@@ -61,12 +61,14 @@ export default function ReferalLink({user}) {
                         <img src={referalLogo} alt="referal logo"/>
                     </div>
                 </div>
-                <div className="feferals-moments">
+                <div className="referals-moments">
                     {data.map((elem, index) => {
-                        return (<div key={index}>
-                            <p>{index + 1}</p>
-                            <img src={elem.photo_url} alt={`image-${index}`}/>
-                            <p>{elem.username}</p>
+                        return (<div key={index} className="referal-block">
+                            <div>
+                                <p className="number">{index + 1}.</p>
+                                <img src={elem.photo_url} alt={`image-${index}`} className="photo-user"/>
+                                <p>{elem.username}</p>
+                            </div>
                             <p>+{elem.points}</p>
                         </div>)
                     })}

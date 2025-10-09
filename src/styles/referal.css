@@ -14,7 +14,7 @@
         display: flex;
         flex: 1;
         flex-direction: column;
-        padding: 20px 20px;
+        padding: 20px;
     }
 
     .referal__container .header-block {
@@ -52,6 +52,7 @@
     .referal-link {
         background: linear-gradient(242.12deg, #CCCCCC 11.09%, #5E5E5E 140.65%);
         padding: 15px 20px;
+        margin-bottom: 35px;
         border-radius: 20px;
     }
 
@@ -93,6 +94,76 @@
     .referal-link .links button img {
         width: 25px;
     }
+
+    .count-referal-links {
+        color: white;
+        padding: 0 20px;
+    }
+
+    .top-referals {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin-bottom: 15px;
+        align-items: center;
+    }
+
+    .top-referals h2 {
+        font-size: 25px;
+        font-weight: 400;
+    }
+
+    .right-top-referals {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .right-top-referals p {
+        font-size: 30px;
+    }
+    
+    .right-top-referals img {
+        height: 32px;
+    }
+
+    .referals-moments {
+        display: flex;
+        flex-direction: column;  /* элементы идут сверху вниз */
+        gap: 10px;
+        
+        max-height: 400px;       /* ограничиваем высоту блока */
+        overflow-y: auto;        /* включаем вертикальный скролл */
+        padding-right: 10px;     /* чтобы скролл не перекрывал контент */
+
+        scrollbar-width: thin; 
+        scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+    }
+
+    .referal-block {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .referal-block div{
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .number {
+        margin-right: 10px;
+    }
+
+    .photo-user {
+        width: 30px;
+        height: 30px;
+        border-radius: 25px;
+    }
+
 }
 
 @media (min-width: 365px) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Form from "./components/Form";
 import MainPage from "./components/MainPage";
 import ReferalLink from "./components/ReferalLink";
@@ -8,7 +8,7 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   const [user, setUser] = useState(0);
 
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     const user = window.Telegram.WebApp.initDataUnsafe.user;
     setUser({
       id: user.id,
@@ -16,7 +16,7 @@ function App() {
       username: user.username,
       photo_url: user.photo_url,
     });
-  };
+  }, [setUser]);
 
   return (
     <div className="App">

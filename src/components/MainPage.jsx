@@ -16,7 +16,7 @@ export default function MainPage({ fetchData }) {
     useEffect(() => {
         setPoints(200)
         fetchData()
-    }, []) 
+    }, [fetchData]) 
 
     const data = [
         {
@@ -93,6 +93,8 @@ export default function MainPage({ fetchData }) {
   const handleClick = () => {
     setRotating(true);
     setTimeout(() => setRotating(false), 500);
+
+    fetchData()
   };
 
   return (

@@ -124,26 +124,28 @@
 
     .buttons {
         display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
+        flex-direction: row;       /* одна строка */
+        justify-content: space-between; /* равномерное распределение кнопок */
+        gap: 10px;                 /* расстояние между кнопками */
         margin-top: 20px;
         margin-bottom: 20px;
     }
 
     .buttons button {
-        height: 100%;
-        padding: 8px 12px;
+        flex: 1 1 0;               /* растягиваемся равномерно */
+        height: 45px;              /* удобная высота */
+        padding: 0 10px;           /* внутренние отступы */
         text-decoration: none;
-        border-radius: 15px; 
+        border-radius: 15px;
         background: linear-gradient(258.92deg, #CCCCCC -1.8%, #4B4B4B 153.03%);
         color: white;
         font-weight: 700;
-        font-size: 11px;
+        font-size: 12px;
         border: none;
         cursor: pointer;
     }
+
+
 
     .history {
         display: flex;
