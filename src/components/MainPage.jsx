@@ -11,15 +11,11 @@ import { useEffect, useState } from "react";
 export default function MainPage({ fetchData }) {
   const [points, setPoints] = useState(0);
   const [rotating, setRotating] = useState(false);
-  const [loading, setLoading] = useState(true); // состояние загрузки
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    const res = fetchData(); // синхронная функция
     setPoints(200);
-    setData([]);
-    setLoading(false);
+    if (data.length) setData([]);
   }, [fetchData]);
 
   const fallbackData = [
@@ -98,14 +94,8 @@ export default function MainPage({ fetchData }) {
     setRotating(true);
     setTimeout(() => setRotating(false), 500);
 
-    setLoading(true);
-    const res = fetchData();
-    setPoints(200);
-    setData([]);
-    setLoading(false);
+    fetchData();
   };
-
-  if (loading) return <Loader />;
 
   return (
     <div className="main-page">

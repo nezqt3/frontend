@@ -5,6 +5,7 @@ import logoImage from "../static/logo.svg";
 import copy from "../static/copy logo.svg";
 import referalLogo from "../static/referal logo.svg";
 import { Link } from "react-router-dom";
+import complete from "../static/icons8-галочка.svg";
 import { useState } from "react";
 
 export default function ReferalLink({ user }) {
@@ -43,7 +44,7 @@ export default function ReferalLink({ user }) {
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 2000); // короткая анимация
     } catch (err) {
       console.error("Ошибка копирования: ", err);
     }
@@ -77,14 +78,19 @@ export default function ReferalLink({ user }) {
             {link === "" ? (
               <button onClick={createReferal}>ПРИГЛАСИТЬ</button>
             ) : (
-              <div>{link}</div>
+              <div className="link-created">
+                <span>{link}</span>
+              </div>
             )}
-            <button>
-              {copied ? (
-                <img src={copy} alt="copy" />
-              ) : (
-                <img src="" alt="complete" />
-              )}
+            <button
+              onClick={handleCopy}
+              className={`copy-btn ${copied ? "copied" : ""}`}
+            >
+              <img
+                src={copied ? complete : copy}
+                alt={copied ? "complete" : "copy"}
+                className={`icon ${copied ? "icon-bounce" : ""}`}
+              />
             </button>
           </div>
         </div>

@@ -22,7 +22,6 @@
   }
 }
 
-/* мерцание */
 @keyframes pulse {
   0% {
     opacity: 0.6;

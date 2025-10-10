@@ -86,6 +86,7 @@
 
   .referal-link .links button {
     color: white;
+    cursor: pointer;
     background: linear-gradient(85.68deg, #1c1c1c -16.27%, #807f7f 120.21%);
     padding: 20px 30px;
     font-size: 20px;
@@ -97,10 +98,79 @@
     font-weight: 700;
     line-height: 100%;
     outline: none;
+    display: flex;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    transition:
+      background 0.3s,
+      transform 0.2s;
   }
 
   .referal-link .links button img {
     width: 25px;
+    height: 25px;
+    transition: transform 0.3s;
+  }
+
+  .referal-link .links button.copied img {
+    animation: bounce 0.5s forwards;
+  }
+
+  .referal-link .links button .copy-text {
+    position: relative;
+    z-index: 1;
+    transition:
+      transform 0.3s,
+      opacity 0.3s;
+  }
+
+  .referal-link .links button.copied .copy-text {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .link-created {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* текст по центру */
+    background: linear-gradient(85.68deg, #2c2c2c -16.27%, #5e5e5e 120.21%);
+    padding: 20px 30px;
+    border-radius: 16px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    word-break: break-all; /* перенос длинной ссылки */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+    transition:
+      background 0.3s,
+      transform 0.2s;
+    width: 200px; /* фиксированная ширина — совпадает с кнопкой */
+    max-width: 100%;
+  }
+
+  .link-created span {
+    overflow: hidden;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .copy-btn {
+    margin-left: 10px;
   }
 
   .count-referal-links {
@@ -137,13 +207,11 @@
 
   .referals-moments {
     display: flex;
-    flex-direction: column; /* элементы идут сверху вниз */
+    flex-direction: column;
     gap: 10px;
-
-    max-height: 400px; /* ограничиваем высоту блока */
-    overflow-y: auto; /* включаем вертикальный скролл */
-    padding-right: 10px; /* чтобы скролл не перекрывал контент */
-
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
   }
@@ -153,9 +221,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .referal-block {
     margin: auto 0;
   }
 
