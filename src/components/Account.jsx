@@ -71,7 +71,7 @@ export default function Account({ user }) {
         <div className="info-about-user">
           <img src={accountImage} alt="photo_user" className="photo_user" />
           <div className="username">
-            <p>@username</p>
+            <p>@{user.username}</p>
           </div>
         </div>
 
