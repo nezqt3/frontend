@@ -6,10 +6,31 @@ import logoImage from "../static/logo.svg";
 import lineOrder from "../static/lineOrder.svg";
 import arrowDown from "../static/arrowDown.svg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Account({ user }) {
   const [openIndexes, setOpenIndexes] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [debug, setDebug] = useState([]); // массив сообщений отладки
+
+  const [pingResult, setPingResult] = useState("");
+
+  const testPing = async () => {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/ping");
+      const data = await res.json();
+      setPingResult(`✅ ${data.message}`);
+    } catch (e) {
+      setPingResult("❌ Нет соединения с Flask API");
+    }
+  };
+
+  const log = (msg) => {
+    setDebug((prev) => [
+      ...prev,
+      `[${new Date().toLocaleTimeString()}] ${msg}`,
+    ]);
+  };
 
   const toggleOrder = (index) => {
     setOpenIndexes((prev) =>
@@ -17,40 +38,38 @@ export default function Account({ user }) {
     );
   };
 
-  const orders = [
-    {
-      nameOfOrder: "Футболка",
-      dateOfCreate: "08.09.2024",
-      address: "г. Ростов-на-Дону, Ворошиловский проспект 34",
-      size: "M",
-      count: 1,
-      cost: 16800,
-    },
-    {
-      nameOfOrder: "Толстовка",
-      dateOfCreate: "12.09.2024",
-      address: "г. Ростов-на-Дону, Ворошиловский проспект 34",
-      size: "M",
-      count: 1,
-      cost: 16800,
-    },
-    {
-      nameOfOrder: "Кроссовки",
-      dateOfCreate: "20.09.2024",
-      address: "г. Ростов-на-Дону, Ворошиловский проспект 34",
-      size: "M",
-      count: 1,
-      cost: 16800,
-    },
-    {
-      nameOfOrder: "Футболка",
-      dateOfCreate: "04.09.2024",
-      address: "г. Ростов-на-Дону, Ворошиловский проспект 34",
-      size: "M",
-      count: 1,
-      cost: 16800,
-    },
-  ];
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (!user?.id) {
+        log("⚠️ user.id отсутствует — запрос не выполняется");
+        return;
+      }
+
+      const url = `http://127.0.0.1:5000/get_purchases?id=${user.id}`;
+      log(`📡 Отправляем запрос: ${url}`);
+
+      try {
+        const response = await fetch(url);
+        log(`🔍 Ответ: статус ${response.status}`);
+
+        if (!response.ok) {
+          throw new Error(`Ошибка HTTP ${response.status}`);
+        }
+
+        const json = await response.json();
+        log(`📦 Получен JSON: ${JSON.stringify(json)}`);
+
+        const parsed = Array.isArray(json) ? json : Object.values(json);
+        log(`✅ После парсинга: ${parsed.length} заказов`);
+
+        setOrders(parsed);
+      } catch (error) {
+        log(`❌ Ошибка: ${error.message}`);
+      }
+    };
+
+    testPing();
+  }, [user]);
 
   return (
     <div className="account">
@@ -81,6 +100,8 @@ export default function Account({ user }) {
         </div>
 
         <div className="orders">
+          <p>🧾 user.id: {user.id}</p>
+          <p>📊 Всего заказов: {orders.length}</p>
           {orders.map((elem, index) => {
             const isOpen = openIndexes.includes(index);
             return (
@@ -95,7 +116,7 @@ export default function Account({ user }) {
                     className={`arrow ${isOpen ? "rotated" : ""}`}
                   />
                   <p>{index + 1}.</p>
-                  <p>{elem.nameOfOrder}</p>
+                  <p>{elem.name}</p>
                   <img
                     src={lineOrder}
                     alt="line-order"
@@ -106,7 +127,7 @@ export default function Account({ user }) {
                 {isOpen && (
                   <div className="upper-block">
                     <p>
-                      Дата создания - <b>{elem.dateOfCreate}</b>
+                      Дата создания - <b>{elem.date}</b>
                     </p>
                     <p>Адрес - {elem.address}</p>
                     <p>
@@ -122,7 +143,25 @@ export default function Account({ user }) {
             );
           })}
         </div>
+
+        {/* 🧠 Блок отладки */}
+        <div
+          style={{
+            background: "rgba(0,0,0,0.6)",
+            color: "lime",
+            fontFamily: "monospace",
+            padding: "10px",
+            marginTop: "20px",
+            borderRadius: "10px",
+            maxHeight: "200px",
+            overflowY: "auto",
+          }}
+        >
+          <b>🔧 Debug Info:</b>
+          <ul>{pingResult}</ul>
+        </div>
       </div>
+
       <img src={logoImage} alt="logo" className="logo" />
     </div>
   );

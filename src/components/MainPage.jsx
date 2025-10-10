@@ -4,7 +4,6 @@ import background from "../static/background.png";
 import logoImage from "../static/logo.svg";
 import update from "../static/update.svg";
 import line from "../static/lineHistory.svg";
-import Loader from "../components/Loader"; // импорт Loader
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -15,7 +14,7 @@ export default function MainPage({ fetchData }) {
 
   useEffect(() => {
     setPoints(200);
-    if (data.length) setData([]);
+    fetchData();
   }, [fetchData]);
 
   const fallbackData = [
