@@ -11,26 +11,6 @@ import { useEffect, useState } from "react";
 export default function Account({ user }) {
   const [openIndexes, setOpenIndexes] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [debug, setDebug] = useState([]); // массив сообщений отладки
-
-  const [pingResult, setPingResult] = useState("");
-
-  const testPing = async () => {
-    try {
-      const res = await fetch("http://127.0.0.1:5000/ping");
-      const data = await res.json();
-      setPingResult(`✅ ${data.message}`);
-    } catch (e) {
-      setPingResult("❌ Нет соединения с Flask API");
-    }
-  };
-
-  const log = (msg) => {
-    setDebug((prev) => [
-      ...prev,
-      `[${new Date().toLocaleTimeString()}] ${msg}`,
-    ]);
-  };
 
   const toggleOrder = (index) => {
     setOpenIndexes((prev) =>
@@ -41,34 +21,28 @@ export default function Account({ user }) {
   useEffect(() => {
     const fetchOrders = async () => {
       if (!user?.id) {
-        log("⚠️ user.id отсутствует — запрос не выполняется");
         return;
       }
 
       const url = `http://127.0.0.1:5000/get_purchases?id=${user.id}`;
-      log(`📡 Отправляем запрос: ${url}`);
-
       try {
         const response = await fetch(url);
-        log(`🔍 Ответ: статус ${response.status}`);
 
         if (!response.ok) {
           throw new Error(`Ошибка HTTP ${response.status}`);
         }
 
         const json = await response.json();
-        log(`📦 Получен JSON: ${JSON.stringify(json)}`);
 
         const parsed = Array.isArray(json) ? json : Object.values(json);
-        log(`✅ После парсинга: ${parsed.length} заказов`);
 
         setOrders(parsed);
-      } catch (error) {
-        log(`❌ Ошибка: ${error.message}`);
+      } catch {
+        console.log("error");
       }
     };
 
-    testPing();
+    fetchOrders();
   }, [user]);
 
   return (
@@ -142,23 +116,6 @@ export default function Account({ user }) {
               </div>
             );
           })}
-        </div>
-
-        {/* 🧠 Блок отладки */}
-        <div
-          style={{
-            background: "rgba(0,0,0,0.6)",
-            color: "lime",
-            fontFamily: "monospace",
-            padding: "10px",
-            marginTop: "20px",
-            borderRadius: "10px",
-            maxHeight: "200px",
-            overflowY: "auto",
-          }}
-        >
-          <b>🔧 Debug Info:</b>
-          <ul>{pingResult}</ul>
         </div>
       </div>
 
