@@ -24,7 +24,7 @@ export default function Account({ user }) {
         return;
       }
 
-      const url = `http://127.0.0.1:5000/get_purchases?id=${user.id}`;
+      const url = `https://fringelike-milan-misformed.ngrok-free.dev/get_purchases?id=${user.id}`;
       try {
         const response = await fetch(url);
 
