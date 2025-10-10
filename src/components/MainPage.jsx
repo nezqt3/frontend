@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 export default function MainPage({ fetchData }) {
   const [points, setPoints] = useState(0);
   const [rotating, setRotating] = useState(false);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   useEffect(() => {
     setPoints(200);
