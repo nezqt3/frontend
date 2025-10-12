@@ -84,7 +84,7 @@
 
   .referal-link .links {
     display: flex;
-    gap: 30px;
+    gap: 15px;
   }
 
   .referal-link .links button {
