@@ -5,7 +5,7 @@ import background from "../static/background.png";
 import logoImage from "../static/logo.svg";
 import { Link } from "react-router-dom";
 
-export default function Form({ sumPoints }) {
+export default function Form({ sumPoints, user }) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [url, setUrl] = useState("");
@@ -17,7 +17,7 @@ export default function Form({ sumPoints }) {
   const [notification, setNotification] = useState("");
   const [hideNotification, setHideNotification] = useState(false);
 
-  const TELEGRAM_BOT_TOKEN = "8477044848:AAEtFB8sUdxi4KkYGypov7WgtQY4yyneK5U";
+  const TELEGRAM_BOT_TOKEN = "8463311328:AAEIeCXI6-aYPrLiZX3GrnoOrYHawmSQoyA";
   const CHAT_ID = "1108856135";
 
   const showNotification = (text) => {
@@ -46,6 +46,7 @@ export default function Form({ sumPoints }) {
     setIsSubmitting(true);
 
     const message = `
+Айди пользователя: ${user.id}
 Новый заказ:
 Наименование: ${name}
 Адрес: ${address}

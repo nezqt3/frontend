@@ -22,7 +22,7 @@ export default function ReferalLink({
   const createReferal = async () => {
     if (!user?.id) return;
 
-    const url = `https://t.me/referalApi_bot?start=${user.id}`;
+    const url = `https://t.me/ghosted404_bot?start=${user.id}`;
 
     try {
       const response = await fetch(

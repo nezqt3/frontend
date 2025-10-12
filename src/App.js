@@ -125,7 +125,10 @@ function App() {
             />
           }
         />
-        <Route path="/order" element={<Form sumPoints={sumPoints} />} />
+        <Route
+          path="/order"
+          element={<Form sumPoints={sumPoints} user={user} />}
+        />
         <Route
           path="/referal"
           element={
