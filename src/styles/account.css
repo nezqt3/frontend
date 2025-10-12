@@ -3,7 +3,7 @@
     width: 100%;
     min-height: 100vh;
     color: white;
-    background-color: rgba(44, 44, 44, 1);
+    background-color: "#141414";
     position: relative;
     overflow-y: auto;
     flex-direction: column;

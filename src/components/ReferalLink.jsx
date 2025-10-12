@@ -6,7 +6,7 @@ import copy from "../static/copy logo.svg";
 import referalLogo from "../static/referal logo.svg";
 import { Link } from "react-router-dom";
 import complete from "../static/icons8-галочка.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export default function ReferalLink({
   user,
@@ -16,10 +16,26 @@ export default function ReferalLink({
   setRefferals,
 }) {
   const [copied, setCopied] = useState(false);
+  const [newReferrals, setNewReferrals] = useState([]);
 
-  useEffect(() => {}, []);
+  const sendReferralLink = async (url) => {
+    try {
+      const tgShareLink = `https://t.me/share/url?url=${encodeURIComponent(ref)}&text=Смотри какой крутой магазин нашел, заходи вместе будем копить баллы`;
 
-  const createReferal = async () => {
+      if (window.Telegram?.WebApp?.openLink) {
+        // Откроет встроенный диалог пересылки в Telegram
+        window.Telegram.WebApp.openLink(tgShareLink);
+      } else {
+        // На десктопе или вне Telegram копируем в буфер
+        await navigator.clipboard.writeText(ref);
+        alert("Ссылка скопирована в буфер обмена");
+      }
+    } catch (err) {
+      console.error("Ошибка при пересылке ссылки:", err);
+    }
+  };
+
+  const createReferal = useCallback(async () => {
     if (!user?.id) return;
 
     const url = `https://t.me/ghosted404_bot?start=${user.id}`;
@@ -43,13 +59,25 @@ export default function ReferalLink({
       if (data.status === "success") {
         console.log("Реферальная ссылка обновлена на сервере:", data.data);
         setRefferals(url);
+        return url;
       } else {
         console.error("Ошибка обновления ссылки:", data.message);
       }
     } catch (error) {
       console.error("Ошибка при PUT-запросе:", error);
     }
-  };
+  }, [user?.id, setRefferals]);
+
+  useEffect(() => {
+    createReferal();
+    setNewReferrals(
+      referrals.filter(
+        (elem) =>
+          elem.for_this.includes("Пригласил") ||
+          elem.for_this.includes("Регистрация"),
+      ),
+    );
+  }, [createReferal, setNewReferrals, referrals]);
 
   const handleCopy = async () => {
     try {
@@ -86,13 +114,14 @@ export default function ReferalLink({
           <h1>РЕФЕРАЛКА</h1>
           <p>Приглашай друзей и получай 1% бонусами от стоимости их заказов</p>
           <div className="links">
-            {ref === "" ? (
-              <button onClick={createReferal}>ПРИГЛАСИТЬ</button>
-            ) : (
-              <div className="link-created">
-                <span>{ref}</span>
-              </div>
-            )}
+            <button
+              onClick={async () => {
+                sendReferralLink();
+              }}
+            >
+              ПРИГЛАСИТЬ
+            </button>
+
             <button
               onClick={handleCopy}
               className={`copy-btn ${copied ? "copied" : ""}`}
@@ -110,33 +139,27 @@ export default function ReferalLink({
           <div className="top-referals">
             <h2>Ваши рефералы</h2>
             <div className="right-top-referals">
-              <p>{referrals.length}</p>
+              <p>{newReferrals.length}</p>
               <img src={referalLogo} alt="referal logo" />
             </div>
           </div>
           <div className="referals-moments">
-            {referrals
-              .filter(
-                (elem) =>
-                  elem.for_this.includes("Пригласил") ||
-                  elem.for_this.includes("Регистрация"),
-              )
-              .map((elem, index) => {
-                return (
-                  <div key={index} className="referal-block">
-                    <div>
-                      <p className="number">{index + 1}.</p>
-                      <img
-                        src={elem.photo_url}
-                        alt={`image-${index}`}
-                        className="photo-user"
-                      />
-                      <p>{elem.username}</p>
-                    </div>
-                    <p>+{elem.count}</p>
+            {newReferrals.map((elem, index) => {
+              return (
+                <div key={index} className="referal-block">
+                  <div>
+                    <p className="number">{index + 1}.</p>
+                    <img
+                      src={elem.photo_url}
+                      alt={`image-${index}`}
+                      className="photo-user"
+                    />
+                    <p>{elem.username}</p>
                   </div>
-                );
-              })}
+                  <p>+{elem.count}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
