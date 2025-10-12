@@ -3,7 +3,7 @@
   .form {
     width: 100%;
     min-height: 100vh;
-    background-color: rgba(44, 44, 44, 1);
+    background-color: "#141414";
     position: relative;
     overflow: hidden;
     display: flex;
