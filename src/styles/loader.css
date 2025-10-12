@@ -3,57 +3,56 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vw;
   background: #141414;
   overflow: hidden;
   position: relative;
 }
 
+/* 🔥 Контейнер орбиты по центру экрана */
 .loader {
+  position: absolute;
   width: 100px;
   height: 100px;
-  position: relative;
-  z-index: 2;
-  animation: spiralOrbit 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center; /* центр вращения — центр элемента */
+  animation: orbit 4s linear infinite;
 }
 
-/* 🌪️ Усиленное спиральное движение */
-@keyframes spiralOrbit {
+/* 🌪️ Движение по окружности + вращение вокруг своей оси */
+@keyframes orbit {
   0% {
-    transform: rotate(0deg) translateX(70px) scale(0.9);
-    opacity: 1;
+    transform: rotate(0deg) translateY(120px) rotate(0deg); /* старт снизу */
   }
   25% {
-    transform: rotate(90deg) translateX(90px) scale(1.1);
-    opacity: 0.9;
+    transform: rotate(90deg) translateY(120px) rotate(90deg);
   }
   50% {
-    transform: rotate(180deg) translateX(110px) scale(1.3);
-    opacity: 0.7;
+    transform: rotate(180deg) translateY(120px) rotate(180deg);
   }
   75% {
-    transform: rotate(270deg) translateX(90px) scale(1.1);
-    opacity: 0.9;
+    transform: rotate(270deg) translateY(120px) rotate(270deg);
   }
   100% {
-    transform: rotate(360deg) translateX(70px) scale(0.9);
-    opacity: 1;
+    transform: rotate(360deg) translateY(120px) rotate(360deg);
   }
 }
 
-/* Простой пульсирующий эффект */
-@keyframes subtlePulse {
+/* 💫 Пульс + свечение */
+.loader img {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
   0%,
   100% {
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
   }
   50% {
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
   }
-}
-
-/* Применяем пульсацию к изображению */
-.loader {
-  animation:
-    spiralOrbit 2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite,
-    subtlePulse 2s ease-in-out infinite;
 }
