@@ -14,7 +14,6 @@ function App() {
   const [orders, setOrders] = useState([]);
   const [referrals, setRefferals] = useState([]);
   const [sumPoints, setSumPoints] = useState(0);
-  const [historyPoints, setHistoryPoints] = useState([]);
 
   const fetchOrders = useCallback(async (userId) => {
     if (!userId) return;
@@ -36,7 +35,7 @@ function App() {
     }
   }, []);
 
-  const fetchReferrals = async (userId) => {
+  const fetchReferrals = useCallback(async (userId) => {
     if (!userId) return;
 
     const url = `https://rupl.pythonanywhere.com/points/history?id=${userId}`;
@@ -50,7 +49,7 @@ function App() {
     } catch (err) {
       console.log("Ошибка при загрузке заказов:", err);
     }
-  };
+  }, []);
 
   const getUserInfo = useCallback(async (userId, userPhotoUrl) => {
     if (!userId) return;
@@ -70,7 +69,7 @@ function App() {
     } catch (err) {
       console.log("Ошибка при загрузке заказов:", err);
     }
-  });
+  }, []);
 
   const fetchSumReferrals = useCallback(async (userId) => {
     if (!userId) return;
@@ -89,7 +88,7 @@ function App() {
     } catch (err) {
       console.log("Ошибка при загрузке заказов:", err);
     }
-  });
+  }, []);
 
   const fetchData = useCallback(async () => {
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
@@ -100,7 +99,7 @@ function App() {
     await fetchSumReferrals(userData.id);
     await fetchReferrals(userData.id);
     return userData;
-  }, []);
+  }, [fetchOrders, getUserInfo, fetchSumReferrals, fetchReferrals]);
 
   useEffect(() => {
     const init = async () => {

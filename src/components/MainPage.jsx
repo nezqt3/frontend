@@ -5,7 +5,7 @@ import logoImage from "../static/logo.svg";
 import update from "../static/update.svg";
 import line from "../static/lineHistory.svg";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function MainPage({ fetchData, sumPoints, referrals }) {
   const [rotating, setRotating] = useState(false);
