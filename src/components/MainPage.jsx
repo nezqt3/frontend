@@ -101,7 +101,10 @@ export default function MainPage({ fetchData, sumPoints, referrals }) {
                               : elem.for_this}
                       </p>
                     </div>
-                    <p className="add-points">+{elem.count}</p>
+                    <p className="add-points">
+                      {elem.count > 0 ? "+" : ""}
+                      {elem.count}
+                    </p>
                   </div>
                 );
               })}
