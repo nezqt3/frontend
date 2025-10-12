@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import downBackgroundImage from "../static/downBackgroundImage.svg";
 import accountImage from "../static/Account.svg";
 import background from "../static/background.png";
@@ -20,18 +20,24 @@ export default function Form({ sumPoints, user }) {
   const TELEGRAM_BOT_TOKEN = "8463311328:AAEIeCXI6-aYPrLiZX3GrnoOrYHawmSQoyA";
   const CHAT_ID = "6216832500";
 
+  // Создаем рефы для инпутов
+  const addressRef = useRef(null);
+  const urlRef = useRef(null);
+  const sizeRef = useRef(null);
+  const countRef = useRef(null);
+  const promocodeRef = useRef(null);
+
   const showNotification = (text) => {
     setNotification(text);
     setHideNotification(false);
 
-    setTimeout(() => setHideNotification(true), 4000); // через 4 сек начнется исчезновение
-    setTimeout(() => setNotification(""), 5000); // через 5 сек полностью убираем
+    setTimeout(() => setHideNotification(true), 4000);
+    setTimeout(() => setNotification(""), 5000);
   };
 
   const handleSubmit = async () => {
     if (isSubmitting) return;
 
-    // Проверка обязательных полей
     if (
       !name.trim() ||
       !address.trim() ||
@@ -67,7 +73,6 @@ export default function Form({ sumPoints, user }) {
         },
       );
 
-      // Очистка формы
       setName("");
       setAddress("");
       setUrl("");
@@ -81,6 +86,17 @@ export default function Form({ sumPoints, user }) {
       showNotification("❌ Ошибка при отправке заказа. Попробуйте позже.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleKeyDown = (e, nextRef) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (nextRef) {
+        nextRef.current.focus();
+      } else {
+        handleSubmit(); // если nextRef нет, отправляем форму
+      }
     }
   };
 
@@ -115,36 +131,47 @@ export default function Form({ sumPoints, user }) {
             placeholder="Наименование*"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, addressRef)}
           />
           <input
+            ref={addressRef}
             type="text"
             placeholder="Адрес*"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, urlRef)}
           />
           <input
+            ref={urlRef}
             type="text"
             placeholder="Ссылка*"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, sizeRef)}
           />
           <input
+            ref={sizeRef}
             type="text"
             placeholder="Размер*"
             value={size}
             onChange={(e) => setSize(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, countRef)}
           />
           <input
+            ref={countRef}
             type="text"
             placeholder="Количество*"
             value={count}
             onChange={(e) => setCount(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, promocodeRef)}
           />
           <input
+            ref={promocodeRef}
             type="text"
             placeholder="Промокод"
             value={promocode}
             onChange={(e) => setPromocode(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, null)} // последний инпут — отправка
           />
           <button onClick={handleSubmit} disabled={isSubmitting}>
             {isSubmitting ? "Отправка..." : "ЗАКАЗАТЬ"}
