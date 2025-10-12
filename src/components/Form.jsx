@@ -96,7 +96,7 @@ export default function Form({ sumPoints, user }) {
       <div className="form__container">
         <div className="header-block">
           <header>
-            <Link to="account">
+            <Link to="https://minishopghost.netlify.app/account">
               <img src={accountImage} alt="account" />
             </Link>
             <p>{sumPoints}</p>
