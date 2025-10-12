@@ -18,7 +18,7 @@ export default function Form({ sumPoints, user }) {
   const [hideNotification, setHideNotification] = useState(false);
 
   const TELEGRAM_BOT_TOKEN = "8463311328:AAEIeCXI6-aYPrLiZX3GrnoOrYHawmSQoyA";
-  const CHAT_ID = "1108856135";
+  const CHAT_ID = "6216832500";
 
   const showNotification = (text) => {
     setNotification(text);
