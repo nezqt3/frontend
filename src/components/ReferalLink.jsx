@@ -6,34 +6,42 @@ import copy from "../static/copy logo.svg";
 import referalLogo from "../static/referal logo.svg";
 import { Link } from "react-router-dom";
 import complete from "../static/icons8-галочка.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function ReferalLink({ user }) {
+export default function ReferalLink({
+  user,
+  sumPoints,
+  ref,
+  referrals,
+  setReffals,
+}) {
   const [link, setLink] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const data = [
-    {
-      photo_url: user.photo_url,
-      username: user.username,
-      points: 1500,
-    },
-    {
-      photo_url: user.photo_url,
-      username: user.username,
-      points: 500,
-    },
-    {
-      photo_url: user.photo_url,
-      username: user.username,
-      points: 300,
-    },
-    {
-      photo_url: user.photo_url,
-      username: user.username,
-      points: 250,
-    },
-  ];
+  // const data = [
+  //   {
+  //     photo_url: user.photo_url,
+  //     username: user.username,
+  //     points: 1500,
+  //   },
+  //   {
+  //     photo_url: user.photo_url,
+  //     username: user.username,
+  //     points: 500,
+  //   },
+  //   {
+  //     photo_url: user.photo_url,
+  //     username: user.username,
+  //     points: 300,
+  //   },
+  //   {
+  //     photo_url: user.photo_url,
+  //     username: user.username,
+  //     points: 250,
+  //   },
+  // ];
+
+  useEffect(() => {}, []);
 
   const createReferal = () => {
     const url = `https://t.me/referalApi_bot?start=${user.id}`;
@@ -42,9 +50,9 @@ export default function ReferalLink({ user }) {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(link);
+      await navigator.clipboard.writeText(ref);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000); // короткая анимация
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Ошибка копирования: ", err);
     }
@@ -65,7 +73,7 @@ export default function ReferalLink({ user }) {
             <Link to="account">
               <img src={accountImage} alt="account" />
             </Link>
-            <p>200</p>
+            <p>{sumPoints}</p>
           </header>
           <Link to="/" className="close">
             ← Назад
@@ -75,11 +83,11 @@ export default function ReferalLink({ user }) {
           <h1>РЕФЕРАЛКА</h1>
           <p>Приглашай друзей и получай 1% бонусами от стоимости их заказов</p>
           <div className="links">
-            {link === "" ? (
+            {ref === "" ? (
               <button onClick={createReferal}>ПРИГЛАСИТЬ</button>
             ) : (
               <div className="link-created">
-                <span>{link}</span>
+                <span>{ref}</span>
               </div>
             )}
             <button
@@ -99,27 +107,33 @@ export default function ReferalLink({ user }) {
           <div className="top-referals">
             <h2>Ваши рефералы</h2>
             <div className="right-top-referals">
-              <p>{data.length}</p>
+              <p>{referrals.length}</p>
               <img src={referalLogo} alt="referal logo" />
             </div>
           </div>
           <div className="referals-moments">
-            {data.map((elem, index) => {
-              return (
-                <div key={index} className="referal-block">
-                  <div>
-                    <p className="number">{index + 1}.</p>
-                    <img
-                      src={elem.photo_url}
-                      alt={`image-${index}`}
-                      className="photo-user"
-                    />
-                    <p>{elem.username}</p>
+            {referrals
+              .filter(
+                (elem) =>
+                  elem.for_this.includes("Пригласил") ||
+                  elem.for_this.includes("Регистрация"),
+              )
+              .map((elem, index) => {
+                return (
+                  <div key={index} className="referal-block">
+                    <div>
+                      <p className="number">{index + 1}.</p>
+                      <img
+                        src={elem.photo_url}
+                        alt={`image-${index}`}
+                        className="photo-user"
+                      />
+                      <p>{elem.username}</p>
+                    </div>
+                    <p>+{elem.count}</p>
                   </div>
-                  <p>+{elem.points}</p>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </div>

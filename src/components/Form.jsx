@@ -1,17 +1,86 @@
-// import { useState, useEffect } from "react";
+import { useState } from "react";
 import downBackgroundImage from "../static/downBackgroundImage.svg";
 import accountImage from "../static/Account.svg";
 import background from "../static/background.png";
 import logoImage from "../static/logo.svg";
 import { Link } from "react-router-dom";
 
-export default function Form() {
-  // const [name, setName] = useState('')
-  // const [address, setAddress] = useState('')
-  // const [url, setUrl] = useState('')
-  // const [size, setSize] = useState('')
-  // const [count, setCount] = useState('')
-  // const [promocode, setPromocode] = useState('')
+export default function Form({ sumPoints }) {
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [url, setUrl] = useState("");
+  const [size, setSize] = useState("");
+  const [count, setCount] = useState("");
+  const [promocode, setPromocode] = useState("");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [notification, setNotification] = useState("");
+  const [hideNotification, setHideNotification] = useState(false);
+
+  const TELEGRAM_BOT_TOKEN = "8477044848:AAEtFB8sUdxi4KkYGypov7WgtQY4yyneK5U";
+  const CHAT_ID = "1108856135";
+
+  const showNotification = (text) => {
+    setNotification(text);
+    setHideNotification(false);
+
+    setTimeout(() => setHideNotification(true), 4000); // через 4 сек начнется исчезновение
+    setTimeout(() => setNotification(""), 5000); // через 5 сек полностью убираем
+  };
+
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
+
+    // Проверка обязательных полей
+    if (
+      !name.trim() ||
+      !address.trim() ||
+      !url.trim() ||
+      !size.trim() ||
+      !count.trim()
+    ) {
+      showNotification("❌ Пожалуйста, заполните все обязательные поля.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const message = `
+Новый заказ:
+Наименование: ${name}
+Адрес: ${address}
+Ссылка: ${url}
+Размер: ${size}
+Количество: ${count}
+Промокод: ${promocode || "—"}
+    `;
+
+    try {
+      await fetch(
+        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: CHAT_ID, text: message }),
+        },
+      );
+
+      // Очистка формы
+      setName("");
+      setAddress("");
+      setUrl("");
+      setSize("");
+      setCount("");
+      setPromocode("");
+
+      showNotification("✅ Заказ отправлен! Наш менеджер свяжется с вами.");
+    } catch (error) {
+      console.error("Ошибка при отправке в Telegram:", error);
+      showNotification("❌ Ошибка при отправке заказа. Попробуйте позже.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="form">
@@ -28,7 +97,7 @@ export default function Form() {
             <Link to="account">
               <img src={accountImage} alt="account" />
             </Link>
-            <p>1200</p>
+            <p>{sumPoints}</p>
           </header>
           <Link to="/" className="close">
             ← Назад
@@ -41,52 +110,56 @@ export default function Form() {
           <p>ВВЕДИТЕ ДАННЫЕ О ТОВАРЕ</p>
           <input
             type="text"
-            placeholder="Наименование"
-            onFocus={(e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            placeholder="Наименование*"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Адрес"
-            onFocus={(e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            placeholder="Адрес*"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Ссылка"
-            onFocus={(e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            placeholder="Ссылка*"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Размер"
-            onFocus={(e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            placeholder="Размер*"
+            value={size}
+            onChange={(e) => setSize(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Количество"
-            onFocus={(e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            placeholder="Количество*"
+            value={count}
+            onChange={(e) => setCount(e.target.value)}
           />
           <input
             type="text"
             placeholder="Промокод"
-            onFocus={(e) =>
-              e.target.scrollIntoView({ behavior: "smooth", block: "center" })
-            }
+            value={promocode}
+            onChange={(e) => setPromocode(e.target.value)}
           />
-          <button>ЗАКАЗАТЬ</button>
+          <button onClick={handleSubmit} disabled={isSubmitting}>
+            {isSubmitting ? "Отправка..." : "ЗАКАЗАТЬ"}
+          </button>
         </div>
+
+        {notification && (
+          <p className={`notification ${hideNotification ? "hide" : ""}`}>
+            {notification}
+          </p>
+        )}
+
         <p className="manager">
           Наш менеджер свяжется с вами в ближайшее время
         </p>
       </div>
+
       <img src={logoImage} alt="logo" className="logo" />
     </div>
   );

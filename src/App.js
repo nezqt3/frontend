@@ -8,35 +8,160 @@ import Loader from "./components/Loader";
 import Account from "./components/Account";
 
 function App() {
-  const [user, setUser] = useState(0);
-  const [loading, setLoading] = useState(true); // состояние лоадера
+  const [user, setUser] = useState(null);
+  const [referralLink, setReferralLink] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState([]);
+  const [referrals, setRefferals] = useState([]);
+  const [sumPoints, setSumPoints] = useState(0);
+  const [historyPoints, setHistoryPoints] = useState([]);
 
-  const fetchData = useCallback(() => {
-    const user = window.Telegram.WebApp.initDataUnsafe.user;
-    setUser({
-      id: user.id,
-      first_name: user.first_name,
-      username: user.username,
-      photo_url: user.photo_url,
-    });
-  }, [setUser]);
+  const fetchOrders = useCallback(async (userId) => {
+    if (!userId) return;
+
+    const url = `http://127.0.0.1:5000/get_purchases?id=${userId}`;
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP ${response.status}`);
+      }
+
+      const json = await response.json();
+      const parsed = Array.isArray(json) ? json : Object.values(json);
+
+      setOrders(parsed);
+    } catch (err) {
+      console.log("Ошибка при загрузке заказов:", err);
+    }
+  }, []);
+
+  const fetchReferrals = async (userId) => {
+    if (!userId) return;
+
+    const url = `http://127.0.0.1:5000/points/history?id=${userId}`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
+
+      const json = await response.json();
+      setRefferals(Array.isArray(json) ? json : json.data || []);
+      console.log(json);
+    } catch (err) {
+      console.log("Ошибка при загрузке заказов:", err);
+    }
+  };
+
+  const getUserInfo = useCallback(async (userId, userPhotoUrl) => {
+    if (!userId) return;
+
+    const url = `http://127.0.0.1:5000/get_user?id=${userId}`;
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP ${response.status}`);
+      }
+
+      const json = await response.json();
+      const parsed = Array.isArray(json) ? json : Object.values(json);
+      let ref = "";
+      if (parsed.photo_url === "" || parsed.photo_url === null) {
+        const response = await fetch(
+          `http://127.0.0.1:5000/get_user?id=${userId}`,
+          {
+            body: {
+              photo_url: userPhotoUrl,
+            },
+          }
+        );
+        const json = await response.json();
+        console.log(json);
+        ref = response.referal_link;
+      }
+      setReferralLink(ref);
+    } catch (err) {
+      console.log("Ошибка при загрузке заказов:", err);
+    }
+  });
+
+  const fetchSumReferrals = useCallback(async (userId) => {
+    if (!userId) return;
+
+    const url = `http://127.0.0.1:5000/points/sum?id=${userId}`;
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP ${response.status}`);
+      }
+
+      const json = await response.json();
+
+      setSumPoints(json.sum_points);
+    } catch (err) {
+      console.log("Ошибка при загрузке заказов:", err);
+    }
+  });
+
+  const fetchData = useCallback(async () => {
+    // const userData = window.Telegram.WebApp.initDataUnsafe.user;
+
+    const userData = {
+      id: 1108856135,
+      username: "nezqt3",
+      photo_url: "https://url.com",
+    };
+
+    setUser(userData);
+    await fetchOrders(userData.id);
+    await getUserInfo(userData.id, userData.photo_url);
+    await fetchSumReferrals(userData.id);
+    await fetchReferrals(userData.id);
+    return userData;
+  }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
+    const init = async () => {
+      await fetchData();
+      setTimeout(() => setLoading(false), 1500);
+    };
+
+    init();
+  }, [fetchData]);
 
   if (loading) return <Loader />;
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<MainPage fetchData={fetchData} />} />
-        <Route path="/order" element={<Form />} />
-        <Route path="/referal" element={<ReferalLink user={user} />} />
-        <Route path="/account" element={<Account user={user} />} />
+        <Route
+          path="/"
+          element={
+            <MainPage
+              fetchData={fetchData}
+              sumPoints={sumPoints}
+              referrals={referrals}
+            />
+          }
+        />
+        <Route path="/order" element={<Form sumPoints={sumPoints} />} />
+        <Route
+          path="/referal"
+          element={
+            <ReferalLink
+              user={user}
+              sumPoints={sumPoints}
+              ref={referralLink}
+              referrals={referrals}
+              setReferrals={setRefferals}
+            />
+          }
+        />
+        <Route
+          path="/account"
+          element={<Account user={user} orders={orders} />}
+        />
       </Routes>
     </div>
   );

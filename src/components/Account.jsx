@@ -6,44 +6,16 @@ import logoImage from "../static/logo.svg";
 import lineOrder from "../static/lineOrder.svg";
 import arrowDown from "../static/arrowDown.svg";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function Account({ user }) {
+export default function Account({ user, orders }) {
   const [openIndexes, setOpenIndexes] = useState([]);
-  const [orders, setOrders] = useState([]);
 
   const toggleOrder = (index) => {
     setOpenIndexes((prev) =>
       prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
     );
   };
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      if (!user?.id) {
-        return;
-      }
-
-      const url = `https://fringelike-milan-misformed.ngrok-free.dev/get_purchases?id=${user.id}`;
-      try {
-        const response = await fetch(url);
-
-        if (!response.ok) {
-          throw new Error(`Ошибка HTTP ${response.status}`);
-        }
-
-        const json = await response.json();
-
-        const parsed = Array.isArray(json) ? json : Object.values(json);
-
-        setOrders(parsed);
-      } catch {
-        console.log("error");
-      }
-    };
-
-    fetchOrders();
-  }, [user]);
 
   return (
     <div className="account">
@@ -74,8 +46,6 @@ export default function Account({ user }) {
         </div>
 
         <div className="orders">
-          <p>🧾 user.id: {user.id}</p>
-          <p>📊 Всего заказов: {orders.length}</p>
           {orders.map((elem, index) => {
             const isOpen = openIndexes.includes(index);
             return (
