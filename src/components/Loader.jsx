@@ -5,7 +5,9 @@ import "../styles/loader.css";
 const Loader = () => {
   return (
     <div className="loader-container">
-      <img src={Shadow} alt="loader" className="loader" />
+      <div className="loader">
+        <img src={Shadow} alt="ghost loader" />
+      </div>
     </div>
   );
 };
