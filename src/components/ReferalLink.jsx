@@ -20,13 +20,13 @@ export default function ReferalLink({
 
   const sendReferralLink = async (url) => {
     try {
-      const tgShareLink = `https://t.me/share/url?url=${encodeURIComponent(ref)}&text=Смотри какой крутой магазин нашел, заходи вместе будем копить баллы`;
+      const tgShareLink = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${ref}`;
 
-      if (window.Telegram?.WebApp?.openLink) {
-        // Откроет встроенный диалог пересылки в Telegram
+      if (window.Telegram?.WebApp?.openTelegramLink) {
+        window.Telegram.WebApp.openTelegramLink(tgShareLink);
+      } else if (window.Telegram?.WebApp?.openLink) {
         window.Telegram.WebApp.openLink(tgShareLink);
       } else {
-        // На десктопе или вне Telegram копируем в буфер
         await navigator.clipboard.writeText(ref);
         alert("Ссылка скопирована в буфер обмена");
       }

@@ -79,7 +79,7 @@ export default function Account({ user, orders }) {
                     alt="line-order"
                     className="line-order"
                   />
-                  <p>{elem.cost}</p>
+                  <p>{elem.paid_cost}</p>
                 </div>
                 {isOpen && (
                   <div className="upper-block">
@@ -93,7 +93,7 @@ export default function Account({ user, orders }) {
                     <p>
                       Количество - <b>{elem.count} шт</b>
                     </p>
-                    <b>Итог - {elem.cost} ₽</b>
+                    <b>Итог - {elem.paid_cost} ₽</b>
                   </div>
                 )}
               </div>
