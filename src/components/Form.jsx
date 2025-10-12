@@ -47,6 +47,7 @@ export default function Form({ sumPoints, user }) {
 
     const message = `
 Айди пользователя: ${user.id}
+Юзернейм: ${user.username}
 Новый заказ:
 Наименование: ${name}
 Адрес: ${address}
