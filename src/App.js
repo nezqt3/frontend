@@ -19,7 +19,7 @@ function App() {
   const fetchOrders = useCallback(async (userId) => {
     if (!userId) return;
 
-    const url = `http://127.0.0.1:5000/get_purchases?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/get_purchases?id=${userId}`;
     try {
       const response = await fetch(url);
 
@@ -39,7 +39,7 @@ function App() {
   const fetchReferrals = async (userId) => {
     if (!userId) return;
 
-    const url = `http://127.0.0.1:5000/points/history?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/points/history?id=${userId}`;
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
@@ -55,7 +55,7 @@ function App() {
   const getUserInfo = useCallback(async (userId, userPhotoUrl) => {
     if (!userId) return;
 
-    const url = `http://127.0.0.1:5000/get_user?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/get_user?id=${userId}`;
     try {
       const response = await fetch(url);
 
@@ -65,20 +65,7 @@ function App() {
 
       const json = await response.json();
       const parsed = Array.isArray(json) ? json : Object.values(json);
-      let ref = "";
-      if (parsed.photo_url === "" || parsed.photo_url === null) {
-        const response = await fetch(
-          `http://127.0.0.1:5000/get_user?id=${userId}`,
-          {
-            body: {
-              photo_url: userPhotoUrl,
-            },
-          }
-        );
-        const json = await response.json();
-        console.log(json);
-        ref = response.referal_link;
-      }
+      let ref = parsed[0].referal_link;
       setReferralLink(ref);
     } catch (err) {
       console.log("Ошибка при загрузке заказов:", err);
@@ -88,7 +75,7 @@ function App() {
   const fetchSumReferrals = useCallback(async (userId) => {
     if (!userId) return;
 
-    const url = `http://127.0.0.1:5000/points/sum?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/points/sum?id=${userId}`;
     try {
       const response = await fetch(url);
 
@@ -105,13 +92,7 @@ function App() {
   });
 
   const fetchData = useCallback(async () => {
-    // const userData = window.Telegram.WebApp.initDataUnsafe.user;
-
-    const userData = {
-      id: 1108856135,
-      username: "nezqt3",
-      photo_url: "https://url.com",
-    };
+    const userData = window.Telegram.WebApp.initDataUnsafe.user;
 
     setUser(userData);
     await fetchOrders(userData.id);

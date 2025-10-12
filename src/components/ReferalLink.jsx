@@ -13,39 +13,42 @@ export default function ReferalLink({
   sumPoints,
   ref,
   referrals,
-  setReffals,
+  setRefferals,
 }) {
-  const [link, setLink] = useState("");
   const [copied, setCopied] = useState(false);
-
-  // const data = [
-  //   {
-  //     photo_url: user.photo_url,
-  //     username: user.username,
-  //     points: 1500,
-  //   },
-  //   {
-  //     photo_url: user.photo_url,
-  //     username: user.username,
-  //     points: 500,
-  //   },
-  //   {
-  //     photo_url: user.photo_url,
-  //     username: user.username,
-  //     points: 300,
-  //   },
-  //   {
-  //     photo_url: user.photo_url,
-  //     username: user.username,
-  //     points: 250,
-  //   },
-  // ];
 
   useEffect(() => {}, []);
 
-  const createReferal = () => {
+  const createReferal = async () => {
+    if (!user?.id) return;
+
     const url = `https://t.me/referalApi_bot?start=${user.id}`;
-    setLink(url);
+
+    try {
+      const response = await fetch(
+        "https://rupl.pythonanywhere.com/referral_link",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: user.id,
+            referral_link: url,
+          }),
+        },
+      );
+
+      const data = await response.json();
+      if (data.status === "success") {
+        console.log("Реферальная ссылка обновлена на сервере:", data.data);
+        setRefferals(url);
+      } else {
+        console.error("Ошибка обновления ссылки:", data.message);
+      }
+    } catch (error) {
+      console.error("Ошибка при PUT-запросе:", error);
+    }
   };
 
   const handleCopy = async () => {

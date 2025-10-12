@@ -19,11 +19,15 @@ export default function MainPage({ fetchData, sumPoints, referrals }) {
 
   const formatDate = (dateString) => {
     if (!dateString) return "11.11.2024";
-    const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // месяцы с 0
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
+
+    // Разбиваем строку "YYYY-DD-MM" на части
+    const [year, day, month] = dateString.split("-");
+
+    // Подставляем с нулями
+    const formattedDay = String(day).padStart(2, "0");
+    const formattedMonth = String(month).padStart(2, "0");
+
+    return `${formattedDay}.${formattedMonth}.${year}`; // день.месяц.год
   };
 
   return (
@@ -90,7 +94,11 @@ export default function MainPage({ fetchData, sumPoints, referrals }) {
                         {elem.for_this.includes("Пригласил") ||
                         elem.for_this.includes("Регистрация")
                           ? "Реферальная ссылка"
-                          : elem.for_this}
+                          : elem.for_this.includes("Реферальная покупка")
+                            ? "Реферальная покупка"
+                            : elem.for_this.includes("Покупка на")
+                              ? "Покупка"
+                              : elem.for_this}
                       </p>
                     </div>
                     <p className="add-points">+{elem.count}</p>

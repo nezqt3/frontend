@@ -1,224 +1,222 @@
 /* Мобильная версия */
 @media (max-width: 600px) {
-    .main-page {
-        width: 100%;
-        height: 100vh;
-        background-color: rgba(44, 44, 44, 1);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
+  .main-page {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(44, 44, 44, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .background-image {
-        position: absolute;
-        top: 25%;
-        filter: blur(10px);
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: auto; 
-        z-index: 0; 
-    }
+  .background-image {
+    position: absolute;
+    top: 25%;
+    filter: blur(10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: auto;
+    z-index: 0;
+  }
 
-    .background {
-        width: 100%;
-        position: absolute;
-        top: 0;
-        height: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 0;
-    }
+  .background {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+  }
 
-    .main-page__container {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        padding: 20px 20px;
-    }
+  .main-page__container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px 20px;
+  }
 
-    .main-page__container header {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 8px;
-        padding: 0 4px;
-        height: 40px;
-        margin: auto 0;
-        border-radius: 30px;
-        width: auto;
-        min-width: 80px;
-        align-self: flex-start;
-    }
+  .main-page__container header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* закрепляем слева */
+    gap: 8px;
+    padding: 0 4px;
+    height: 40px;
+    border-radius: 30px;
+    min-width: 80px;
+    width: auto;
+    position: relative; /* добавляем для абсолютного смещения img */
+  }
 
-    .main-page__container header img {
-        width: 35px;
-        height: auto;
-        display: block;
-    }
+  .main-page__container header img {
+    width: 35px;
+    height: auto;
+    display: block;
+    margin-left: -5px; /* чуть левее */
+    flex-shrink: 0; /* не сжимается при ресайзе */
+  }
 
-    .points-block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 100%;
-    }
+  .points-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
 
-    .infoBlock-points {
-        background-color: rgba(217, 217, 217, 0.2);
-        color: rgba(157, 157, 157, 1);
-        font-size: 10px;
-        font-weight: 500;
-        text-align: center;
-        margin: 0 50px;
-        border-radius: 20px;
-        padding: 5px 30px;
-        margin-bottom: 10px;
-    }
+  .infoBlock-points {
+    background-color: rgba(217, 217, 217, 0.2);
+    color: rgba(157, 157, 157, 1);
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 50px;
+    border-radius: 20px;
+    padding: 5px 30px;
+    margin-bottom: 10px;
+  }
 
-    .show-pointsBlock {
-        flex: 1;
-        background: linear-gradient(258.92deg, #CCCCCC -1.8%, #4B4B4B 153.03%);
-        border-radius: 25px;
-        padding: 20px 30px;
-    }
+  .show-pointsBlock {
+    flex: 1;
+    background: linear-gradient(258.92deg, #cccccc -1.8%, #4b4b4b 153.03%);
+    border-radius: 25px;
+    padding: 20px 30px;
+  }
 
-    .show-pointsBlock h1 {
-        font-size: 25px;
-        color: white;
-        font-weight: 500;
-        margin-bottom: 10px;
-    }
+  .show-pointsBlock h1 {
+    font-size: 25px;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
 
-    .points-data {
-        background: linear-gradient(85.68deg, #1C1C1C -16.27%, #807F7F 120.21%);
-        color: white;
-        font-weight: 700;
-        font-size: 40px;
-        padding: 5px 0;
-        text-align: center;
-        width: 100%;
-        margin-bottom: 10px;
-        border-radius: 20px;
-        flex: 1;
-    }
+  .points-data {
+    background: linear-gradient(85.68deg, #1c1c1c -16.27%, #807f7f 120.21%);
+    color: white;
+    font-weight: 700;
+    font-size: 40px;
+    padding: 5px 0;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    flex: 1;
+  }
 
-    .block-with-cashback {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
+  .block-with-cashback {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .cashback {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
+  .cashback {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
 
-    .cashback span {
-        font-size: 10px;
-        font-weight: 500;
-        color: rgba(208, 208, 208, 1);
+  .cashback span {
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(208, 208, 208, 1);
+  }
 
-    }
+  .cashback p {
+    font-weight: 500;
+    color: white;
+  }
 
-    .cashback p {
-        font-weight: 500;
-        color: white
-    }
+  .buttons {
+    display: flex;
+    flex-direction: row; /* одна строка */
+    justify-content: space-between; /* равномерное распределение кнопок */
+    gap: 10px; /* расстояние между кнопками */
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-    .buttons {
-        display: flex;
-        flex-direction: row;       /* одна строка */
-        justify-content: space-between; /* равномерное распределение кнопок */
-        gap: 10px;                 /* расстояние между кнопками */
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
+  .buttons button {
+    flex: 1 1 0;
+    height: 45px;
+    padding: 0 10px;
+    text-decoration: none;
+    border-radius: 15px;
+    background: linear-gradient(258.92deg, #cccccc -1.8%, #4b4b4b 153.03%);
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
 
-    .buttons button {
-        flex: 1 1 0;
-        height: 45px;           
-        padding: 0 10px;
-        text-decoration: none;
-        border-radius: 15px;
-        background: linear-gradient(258.92deg, #CCCCCC -1.8%, #4B4B4B 153.03%);
-        color: white;
-        font-weight: 700;
-        font-size: 12px;
-        border: none;
-        cursor: pointer;
-    }
+  .history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .history-list {
+    display: flex;
+    padding: 0 30px;
+    width: 100%;
+    gap: 15px;
+    max-height: 230px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3);
+    flex-direction: column;
+  }
 
+  .history-list div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+    font-size: 15px;
+  }
 
-    .history {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+  .history-list div span {
+    color: rgba(184, 184, 184, 1);
+    margin-right: 8px;
+  }
 
-    .history-list {
-        display: flex;
-        padding: 0 30px;
-        width: 100%;
-        gap: 15px;
-        max-height: 230px;
-        overflow-y: auto;
-        scrollbar-width: thin; 
-        scrollbar-color: rgba(255, 255, 255, 0.3);
-        flex-direction: column;
-    }
+  .add-points {
+    font-size: 20px;
+  }
 
-    .history-list div {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        color: white;
-        font-size: 15px;
-    }
+  .history h2 {
+    margin-bottom: 10px;
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+  }
 
-    .history-list div span {
-        color: rgba(184, 184, 184, 1);
-        margin-right: 8px;
-    }
+  .line {
+    width: 100%;
+    margin-bottom: 15px;
+    height: auto;
+  }
 
-    .add-points {
-        font-size: 20px;
-    }
+  .logo {
+    width: 120px;
+    margin-top: auto;
+    align-self: center;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+  }
 
-    .history h2 {
-        margin-bottom: 10px;
-        color: white;
-        font-weight: 500;
-        font-size: 20px;
-    }
+  .update {
+    width: 35px;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+  }
 
-    .line {
-        width: 100%;
-        margin-bottom: 15px;
-        height: auto;
-    }
-
-    .logo {
-        width: 120px;
-        margin-top: auto;
-        align-self: center;
-        flex-shrink: 0;
-        margin-bottom: 20px;
-    }
-
-    .update {
-        width: 35px;
-        transition: transform 0.5s ease;
-        cursor: pointer; 
-    }
-
-    .update.rotate {
-        transform: rotate(90deg);
-    }
+  .update.rotate {
+    transform: rotate(90deg);
+  }
 }

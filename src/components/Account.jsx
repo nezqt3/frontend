@@ -17,6 +17,19 @@ export default function Account({ user, orders }) {
     );
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString) return "11.11.2024";
+
+    // Разбиваем строку "YYYY-DD-MM" на части
+    const [year, day, month] = dateString.split("-");
+
+    // Подставляем с нулями
+    const formattedDay = String(day).padStart(2, "0");
+    const formattedMonth = String(month).padStart(2, "0");
+
+    return `${formattedDay}.${formattedMonth}.${year}`; // день.месяц.год
+  };
+
   return (
     <div className="account">
       <img
@@ -71,7 +84,7 @@ export default function Account({ user, orders }) {
                 {isOpen && (
                   <div className="upper-block">
                     <p>
-                      Дата создания - <b>{elem.date}</b>
+                      Дата создания - <b>{formatDate(elem.date)}</b>
                     </p>
                     <p>Адрес - {elem.address}</p>
                     <p>
@@ -80,7 +93,7 @@ export default function Account({ user, orders }) {
                     <p>
                       Количество - <b>{elem.count} шт</b>
                     </p>
-                    <b>Итог - 16800 ₽</b>
+                    <b>Итог - {elem.cost} ₽</b>
                   </div>
                 )}
               </div>
