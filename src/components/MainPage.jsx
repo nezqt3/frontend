@@ -20,15 +20,18 @@ export default function MainPage({ fetchData, sumPoints, referrals }) {
   const formatDate = (dateString) => {
     if (!dateString) return "11.11.2024";
 
-    // Разбиваем строку "YYYY-DD-MM" на части
-    const [year, day, month] = dateString.split("-");
+    // Разбиваем строку "YYYY-MM-DD" на части
+    const [year, month, day] = dateString.split("-");
 
-    // Подставляем с нулями
+    // Добавляем ведущие нули
     const formattedDay = String(day).padStart(2, "0");
     const formattedMonth = String(month).padStart(2, "0");
 
     return `${formattedDay}.${formattedMonth}.${year}`; // день.месяц.год
   };
+
+  // ✅ Пример:
+  console.log(formatDate("2025-10-13")); // 13.10.2025
 
   return (
     <div className="main-page">
