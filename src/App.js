@@ -20,7 +20,7 @@ function App() {
 
     const url = `https://fringelike-milan-misformed.ngrok-free.dev/get_purchases?id=${userId}`;
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { method: "GET" });
 
       if (!response.ok) {
         throw new Error(`Ошибка HTTP ${response.status}`);
