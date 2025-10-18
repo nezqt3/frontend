@@ -18,9 +18,9 @@ function App() {
   const fetchOrders = useCallback(async (userId) => {
     if (!userId) return;
 
-    const url = `https://fringelike-milan-misformed.ngrok-free.dev/get_purchases?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/get_purchases?id=${userId}`;
     try {
-      const response = await fetch(url, { method: "GET" });
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error(`Ошибка HTTP ${response.status}`);
@@ -38,7 +38,7 @@ function App() {
   const fetchReferrals = useCallback(async (userId) => {
     if (!userId) return;
 
-    const url = `https://fringelike-milan-misformed.ngrok-free.dev/points/history?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/points/history?id=${userId}`;
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
@@ -54,7 +54,7 @@ function App() {
   const getUserInfo = useCallback(async (userId, userPhotoUrl) => {
     if (!userId) return;
 
-    const url = `https://fringelike-milan-misformed.ngrok-free.dev/get_user?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/get_user?id=${userId}`;
     try {
       const response = await fetch(url);
 
@@ -74,7 +74,7 @@ function App() {
   const fetchSumReferrals = useCallback(async (userId) => {
     if (!userId) return;
 
-    const url = `https://fringelike-milan-misformed.ngrok-free.dev/points/sum?id=${userId}`;
+    const url = `https://rupl.pythonanywhere.com/points/sum?id=${userId}`;
     try {
       const response = await fetch(url);
 
@@ -91,14 +91,9 @@ function App() {
   }, []);
 
   const fetchData = useCallback(async () => {
-    // const userData = window.Telegram.WebApp.initDataUnsafe.user;
+    const userData = window.Telegram.WebApp.initDataUnsafe.user;
 
-    const userData = {
-      fullname: "nezqt3",
-      id: 1108856135,
-    };
-    if (userData !== undefined) setUser(userData);
-    else setUser({});
+    setUser(userData);
     await fetchOrders(userData.id);
     await getUserInfo(userData.id, userData.photo_url);
     await fetchSumReferrals(userData.id);
